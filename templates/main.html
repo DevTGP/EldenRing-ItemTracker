@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Elden Ring - Item Tracker</title>
+
+    <script type="text/javascript" src="{{ url_for('static', filename='src/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='src/anime.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='src/chart.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='src/uikit/js/uikit.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='src/uikit/js/uikit-icons.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='src/jquery-ui/js/jquery-ui.min.js') }}"></script>
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='src/uikit/css/uikit.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='src/flag-icons.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='src/jquery-ui/css/jquery-ui.min.css') }}">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+<img src="{{ url_for('static', filename='src/img/eldenring.png') }}" class="bg">
+<div class="overlay" id="overlay" hidden>
+    <span uk-icon="icon: close; ratio: 1" id="close_overlay"></span>
+    <div class="uk-align-center overlay-content uk-position-center" id="overlay_content">
+        <ul class="uk-list uk-list-collapse uk-list-divider">
+            <li id="languages">
+                <span class="fi fi-en country-flag" id="english" language="en"></span>
+                <span class="fi fi-de country-flag" id="german" language="de"></span>
+            </li>
+            <li id="options">
+            </li>
+        </ul>
+    </div>
+</div>
+<div id="nav-content">
+    <nav id="navbar" class="uk-navbar-container" uk-navbar uk-sticky>
+        <div class="uk-navbar-left nav-overlay">
+            <ul class="uk-navbar-nav">
+                <li class="uk-active">
+                    <a><span uk-icon="icon: cog; ratio: 1" id="open_overlay"></span></a>
+                </li>
+                <li id="categories">
+                </li>
+                <li id="category">
+                </li>
+                <li id="subcategory">
+                </li>
+            </ul>
+        </div>
+        <div class="uk-navbar-right nav-overlay">
+            <ul class="uk-navbar-nav">
+                <li>
+                    <a class="uk-navbar-toggle" uk-search-icon uk-toggle="target: .nav-overlay; animation: uk-animation-fade" href="#" id="search_icon" hidden></a>
+                </li>
+                <li>
+                    <a id="collection_filter" hidden><span uk-icon="icon: more-vertical; ratio: 1"></span></a>
+                    <div class="uk-navbar-dropdown">
+                        <ul class="uk-nav uk-navbar-dropdown-nav">
+                            <li id="filter_all" class="uk-active">
+                            </li>
+                            <li id="filter_collected">
+                            </li>
+                            <li id="filter_uncollected">
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="nav-overlay uk-navbar-left uk-flex-1" hidden>
+            <div class="uk-navbar-item uk-width-expand">
+                <form class="uk-search uk-search-navbar uk-width-1-1">
+                    <input class="uk-search-input" type="search" placeholder="Search" id="searchbar" autofocus>
+                </form>
+            </div>
+            <a class="uk-navbar-toggle" uk-close uk-toggle="target: .nav-overlay; animation: uk-animation-fade" href="#"></a>
+        </div>
+    </nav>
+</div>
+<div uk-filter="target: #items; duration: 2000" id="uk-sorter" class="js-filter-animation">
+    <div id="sorter-container">
+        <nav class="uk-navbar-container" uk-navbar id="sorter" hidden>
+            <div class="uk-navbar-left">
+                <ul class="uk-navbar-nav">
+                    <li class="uk-active" id="go_back">
+                        <a><span uk-icon="icon: arrow-left; ratio: 1"></span></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="uk-navbar-center">
+                <ul class="uk-navbar-nav" id="uk_filter">
+                    <li uk-filter-control="sort: name" class="uk-active"><a>A-Z</a></li>
+                    <li uk-filter-control="sort: name; order: desc"><a>Z-A</a></li>
+                    <li uk-filter-control="sort: position"><a>Original</a></li>
+                    <li uk-filter-control="sort: position; order: desc"><a>Original Reverse</a></li>
+                </ul>
+            </div>
+            <div class="uk-navbar-right">
+                <ul class="uk-navbar-nav">
+                    <li class="uk-active" id="get_list">
+                        <a><span uk-icon="icon: list; ratio: 1"></span></a>
+                    </li>
+                    <li id="get_grid">
+                        <a><span uk-icon="icon: grid; ratio: 1"></span></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div id="items"></div>
+</div>
+<div id="stats" uk-grid class="">
+    <div class="uk-width-1-5@m uk-width-1-3@l" style="background-color: transparent!important;"></div>
+    <div id="stats_all" class="uk-align-center uk-margin uk-width-3-5@m uk-width-1-3@l">
+        <canvas id="chart_all"></canvas>
+    </div>
+    <div class="uk-width-1-5@m uk-width-1-3@l" style="background-color: transparent!important;"></div>
+    <div id="stats_armor" class="uk-align-center uk-margin">
+        <canvas id="chart_armor"></canvas>
+    </div>
+    <div id="stats_equipment" class="uk-align-center uk-margin">
+        <canvas id="chart_equipment"></canvas>
+    </div>
+    <div id="stats_magic" class="uk-align-center uk-margin">
+        <canvas id="chart_magic"></canvas>
+    </div>
+    <div id="stats_skills" class="uk-align-center uk-margin">
+        <canvas id="chart_skills"></canvas>
+    </div>
+    <div id="stats_miscellaneous" class="uk-align-center uk-margin">
+        <canvas id="chart_miscellaneous"></canvas>
+    </div>
+</div>
+</body>
+    <script>
+        var data = JSON.parse('{{ data | tojson }}');
+    </script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/animation.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/build.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/chart.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/db.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/eventlistener.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/list.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/navbar.js') }}"></script>
+
+    <script type="text/javascript" src="{{ url_for('static', filename='js/scroll-behaviour.js') }}"></script>
+
+    <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
+</html>
