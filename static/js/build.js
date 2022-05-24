@@ -140,6 +140,7 @@ function create_list (category) {
         let icon;
         if (item.icon !== null) {
             icon = document.createElement('img');
+            icon.setAttribute('loading', 'lazy');
             icon.src = item.icon;
             icon.width = 40;
             icon.height = 40;

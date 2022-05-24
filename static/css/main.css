@@ -118,7 +118,9 @@ html::-webkit-scrollbar-thumb {
 }
 
 #items {
-    margin-top: 45px;
+    top: 75px;
+    width: 100%;
+    position: absolute;
 }
 
 #stats canvas {

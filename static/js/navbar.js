@@ -138,8 +138,14 @@ function select_category (e) {
     let category = e.target.parentNode.getAttribute('category');
     let title = document.createElement('a');
 
+
+
     current_category = category;
     current_subcategory = null;
+
+    reset_submenu();
+    reset_menu();
+
     if (document.getElementById('get_list').classList.contains('uk-active')) {
         document.getElementById('get_list').click();
     } else {
@@ -148,8 +154,6 @@ function select_category (e) {
     document.getElementById('sorter').hidden = false;
     document.getElementById('uk-sorter').setAttribute('uk-filter', "target: #" + current_category.toString());
 
-    reset_submenu();
-    reset_menu();
 
     title.innerHTML = '<span uk-icon="icon: chevron-double-right" style="position: relative;left: -12px"></span>' + data.categories[category][language].plural;
     document.getElementById('category').appendChild(title);
@@ -254,9 +258,8 @@ function get_list() {
 function reset_menu () {
     document.getElementById('stats').hidden = true;
     document.getElementById('category').innerHTML = '';
-    for (let list of document.getElementById('items').children) {
-        list.hidden = true;
-    }
+    document.getElementById('items').innerHTML = '';
+    create_list(data.categories[current_category]);
 }
 
 // reset submenu and subcategory dropdown

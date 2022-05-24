@@ -1,13 +1,15 @@
 import json
 
 from flask import Flask, render_template, jsonify
+from pathlib import Path
 
 app = Flask(__name__)
 
 
 @app.route('/', methods=['GET', 'POST'])
 def main():
-    with open('C:\\Users\\manue\\PycharmProjects\\EldenRingItemTracker\\static\\data.json', 'r') as file:
+    path = Path(__file__).parent / '..\\EldenRing-ItemTracker\\static\\data.json'
+    with open(path, 'r') as file:
         data = file.read()
         data = json.loads(data)
     return render_template('main.html', data=data)

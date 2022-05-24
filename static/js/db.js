@@ -112,6 +112,7 @@ function load_data (openRequest) {
             db('items', 'put', {id: 'data', data: data});
         }
         // create_list(data.categories.set);
+        /*
         create_list(data.categories.helm);
         create_list(data.categories.chest);
         create_list(data.categories.gauntlets);
@@ -125,6 +126,7 @@ function load_data (openRequest) {
         create_list(data.categories.spirits);
         create_list(data.categories.cookbook);
         create_list(data.categories.gesture);
+        */
         create_chart();
     }
 }
