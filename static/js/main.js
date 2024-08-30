@@ -24,6 +24,7 @@ var language = 'en';
 var current_category = null;
 var current_subcategory = null;
 var current_filter = null;
+var dlc = false;
 var options = {
     option_upgraded_talisman: {
         collection: false,
@@ -84,7 +85,17 @@ var options = {
         collection: true,
         en: 'Gestures',
         de: 'Gesten'
-    }
+    },
+    option_crystaltear: {
+        collection: true,
+        en: 'Crystal Tears',
+        de: 'Kristalltränen'
+    },
+    option_remembrance: {
+        collection: true,
+        en: 'Remembrance',
+        de: '????'
+    },
 };
 var language_pack = {
     en: {
@@ -95,7 +106,7 @@ var language_pack = {
             equipment: 'Equipment',
             magic: 'Magic',
             skills: 'Skills',
-            miscellaneous: 'Miscellaneous'
+            miscellaneous: 'Miscellaneous',
         },
         subcategory_dropdown_header: {
             shield: 'Shield',
@@ -114,13 +125,13 @@ var language_pack = {
             sorcery_type: 'Sorceries by Type',
             sorcery_faction: 'Sorcery by Faction',
             sorcery_element: 'Elemental Sorceries',
-            sorcery_chaos: 'Chaotic Sorceries'
+            sorcery_chaos: 'Chaotic Sorceries',
         },
         searchbar: 'search',
         filter_all: 'All Items',
         filter_collected: 'Collected Items',
         filter_uncollected: 'Uncollected Items',
-        stats_remaining_label: 'Remaining'
+        stats_remaining_label: 'Remaining',
     },
     de: {
         categories_title: 'Kategorien',
@@ -130,7 +141,7 @@ var language_pack = {
             equipment: 'Ausrüstung',
             magic: 'Magie',
             skills: 'Fähigkeiten',
-            miscellaneous: 'Miscellaneous'
+            miscellaneous: 'Miscellaneous',
         },
         subcategory_dropdown_header: {
             shield: 'Schild',
@@ -149,13 +160,13 @@ var language_pack = {
             sorcery_type: 'Zaubereien nach Typ',
             sorcery_faction: 'Zaubereien nach Fraktion',
             sorcery_element: 'Elementare Zaubereien',
-            sorcery_chaos: 'Chaotische Zaubereien'
+            sorcery_chaos: 'Chaotische Zaubereien',
         },
         searchbar: 'suchen',
         filter_all: 'Alle Items',
         filter_collected: 'Gesammelte Items',
         filter_uncollected: 'Nicht gesammelte Items',
-        stats_remaining_label: 'Verbleibend'
+        stats_remaining_label: 'Verbleibend',
     }
 };
 

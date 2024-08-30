@@ -81,52 +81,73 @@ function load_data (openRequest) {
         change_language();
         build_language_accordion();
     }
+    // load and update dlc toggle
+    let dlc_toggle = db('settings', 'get', 'dlc');
+    dlc_toggle.onsuccess = () => {
+        if (dlc_toggle.result === undefined) {
+            db('settings', 'put', {id: 'dlc', data: dlc});
+        } else {
+            dlc_toggle = dlc_toggle.result.data;
+            console.log('dlc:');
+            console.log(dlc_toggle);
+            dlc = dlc_toggle;
+            db('settings', 'put', {id: 'dlc', data: dlc});
+            if (dlc) {
+                document.getElementById('dlc_toggle').classList.add('dlc-option-active');
+                document.getElementById("dlc_icon").classList.add('image-active');
+            }
+        }
+    }
 
     // load and update items
-    let local_data = db('items', 'get', 'data');
-    local_data.onsuccess = () => {
-        if (local_data.result === undefined) {
-            db('items', 'put', {id: 'data', data: data});
-        } else {
-            local_data = local_data.result.data;
-            console.log('localData:');
-            console.log(local_data);
-            // updates item id for upgrade list
-            for (let item of data.upgrades) {
-                for (let d of local_data.categories[item.category].items) {
-                    if (d.id === item.old) {
-                        d.id = item['new'];
-                    }
-                }
-            }
-            // update collected status
-            for (let [key, value] of Object.entries(local_data.categories)) {
-                for (let item of local_data.categories[key].items) {
-                    for (let d of data.categories[key].items) {
-                        if (item.id === d.id) {
-                            d.collected = item.collected;
+    setTimeout( () => {
+        let local_data = db('items', 'get', 'data');
+        local_data.onsuccess = () => {
+            if (local_data.result === undefined) {
+                db('items', 'put', {id: 'data', data: data});
+            } else {
+                local_data = local_data.result.data;
+                console.log('localData:');
+                console.log(local_data);
+                // updates item id for upgrade list
+                for (let item of data.upgrades) {
+                    for (let d of local_data.categories[item.category].items) {
+                        if (d.id === item.old) {
+                            d.id = item['new'];
                         }
                     }
                 }
+                // update collected status
+                for (let [key, value] of Object.entries(local_data.categories)) {
+                    for (let item of local_data.categories[key].items) {
+                        for (let d of data.categories[key].items) {
+                            if (item.id === d.id) {
+                                d.collected = item.collected;
+                            }
+                        }
+                    }
+                }
+                db('items', 'put', {id: 'data', data: data});
             }
-            db('items', 'put', {id: 'data', data: data});
+            // create_list(data.categories.set);
+            /*
+            create_list(data.categories.helm);
+            create_list(data.categories.chest);
+            create_list(data.categories.gauntlets);
+            create_list(data.categories.legs);
+            create_list(data.categories.weapon);
+            create_list(data.categories.shield);
+            create_list(data.categories.talisman);
+            create_list(data.categories.sorcery);
+            create_list(data.categories.incantation);
+            create_list(data.categories.ashes);
+            create_list(data.categories.spirits);
+            create_list(data.categories.cookbook);
+            create_list(data.categories.gesture);
+            create_list(data.categories.crystaltear);
+            create_list(data.categories.remembrance);
+            */
+            create_chart();
         }
-        // create_list(data.categories.set);
-        /*
-        create_list(data.categories.helm);
-        create_list(data.categories.chest);
-        create_list(data.categories.gauntlets);
-        create_list(data.categories.legs);
-        create_list(data.categories.weapon);
-        create_list(data.categories.shield);
-        create_list(data.categories.talisman);
-        create_list(data.categories.sorcery);
-        create_list(data.categories.incantation);
-        create_list(data.categories.ashes);
-        create_list(data.categories.spirits);
-        create_list(data.categories.cookbook);
-        create_list(data.categories.gesture);
-        */
-        create_chart();
-    }
+    }, 100);
 }

@@ -18,7 +18,7 @@ function create_menu () {
             } else if (options.option_weapon.collection === false && options.option_shield.collection === false && options.option_talisman.collection === false && ['weapon', 'shield', 'talisman', 'header equipment'].includes(category)) {
             } else if (options.option_sorcery.collection === false && options.option_incantation.collection === false && ['sorcery', 'incantation', 'header magic'].includes(category)) {
             } else if (options.option_ashes.collection === false && options.option_spirit.collection === false && ['ashes', 'spirits', 'header skills'].includes(category)) {
-            } else if (options.option_cookbook.collection === false && options.option_gesture.collection === false && ['cookbook', 'gesture', 'header miscellaneous'].includes(category)) {
+            } else if (options.option_cookbook.collection === false && options.option_gesture.collection === false && options.option_crystaltear.collection === false && options.option_remembrance.collection === false && ['cookbook', 'gesture', 'crystaltear', 'remembrance', 'header miscellaneous'].includes(category)) {
             } else {
                 let container = document.createElement('div');
 
@@ -45,7 +45,7 @@ function create_menu () {
         } else if (options.option_weapon.collection === false && options.option_shield.collection === false && options.option_talisman.collection === false && ['weapon', 'shield', 'talisman', 'header equipment'].includes(category)) {
         } else if (options.option_sorcery.collection === false && options.option_incantation.collection === false && ['sorcery', 'incantation', 'header magic'].includes(category)) {
         } else if (options.option_ashes.collection === false && options.option_spirit.collection === false && ['ashes', 'spirits', 'header skills'].includes(category)) {
-        } else if (options.option_cookbook.collection === false && options.option_gesture.collection === false && ['cookbook', 'gesture', 'header miscellaneous'].includes(category)) {
+        } else if (options.option_cookbook.collection === false && options.option_gesture.collection === false && options.option_crystaltear.collection === false && options.option_remembrance.collection === false && ['cookbook', 'gesture', 'crystaltear', 'remembrance', 'header miscellaneous'].includes(category)) {
 
         } else if (options.option_weapon.collection === false && category === 'weapon') {
         } else if (options.option_shield.collection === false && category === 'shield') {
@@ -56,6 +56,8 @@ function create_menu () {
         } else if (options.option_spirit.collection === false && category === 'spirits') {
         } else if (options.option_cookbook.collection === false && category === 'cookbook') {
         } else if (options.option_gesture.collection === false && category === 'gesture') {
+        } else if (options.option_crystaltear.collection === false && category === 'crystaltear') {
+        } else if (options.option_remembrance.collection === false && category === 'remembrance') {
         } else {
             let grid = grid_items[grid_items.length - 1];
             grid.children[0].appendChild(element);
@@ -105,8 +107,25 @@ function create_submenu () {
             element.innerText = language_pack[language].subcategory_dropdown_header[subcategory.split(" ")[1]];
 
         } else {
+            if ([
+                'incantation_miquellanincantation',
+                'incantation_spiralincantation',
+                'incantation_messmersfireincantation',
+                'sorcery_fingersorceries',
+                'sorcery_scadutreesorceries',
+                'shield_thrustingshield',
+                'weapons_hand-to-handarts',
+                'weapons_perfumebottles',
+                'weapons_throwingblades',
+                'weapons_greatsword',
+                'weapons_greatkatana',
+                'weapons_backhandblade',
+            ].includes(subcategory.toString()) && !dlc) continue;
+            console.log(subcategory)
+            console.log(data.categories)
+            console.log(data.categories[current_category])
+            console.log(data.categories[current_category].subcategories[subcategory])
             let category_item = document.createElement('a');
-
             category_item.innerText = data.categories[current_category].subcategories[subcategory][language];
             element.setAttribute('subcategory', subcategory);
             category_item.onclick = submenu_onclick;

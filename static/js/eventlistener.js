@@ -107,5 +107,4 @@ function add_event_listener () {
         document.getElementById('filter_uncollected').classList.add('uk-active');
         animate_items('show');
     };
-
 }

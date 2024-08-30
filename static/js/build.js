@@ -76,6 +76,7 @@ function change_language () {
     build_options();
     db('settings', 'put', {id: 'language', data: language});
 
+    build_dlc_icon()
     update_stats();
 }
 
@@ -96,6 +97,24 @@ function build_language_accordion () {
         if (lang.getAttribute('language') === language) {
             lang.classList.add('country-active');
         }
+    }
+}
+
+function build_dlc_icon () {
+    let item = document.getElementById('dlc_toggle');
+    item.onclick = function () {
+        if (dlc) {
+            item.classList.remove('dlc-option-active');
+            document.getElementById("dlc_icon").classList.remove('image-active');
+            dlc = false;
+        } else {
+            item.classList.add('dlc-option-active');
+            document.getElementById("dlc_icon").classList.add('image-active');
+            dlc = true;
+        }
+        db('settings', 'put', {id: 'dlc', data: dlc});
+        document.getElementById('go_back').click();
+        update_stats();
     }
 }
 
@@ -181,6 +200,7 @@ function create_list (category) {
 
 
     for (let item of category.items) {
+        if (!dlc && item.dlc) continue;
         let list_item = create_item(item);
         unordered_list.appendChild(list_item);
     }
