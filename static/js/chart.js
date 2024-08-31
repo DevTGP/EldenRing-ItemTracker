@@ -293,8 +293,8 @@ function update_stats () {
         label_all.push(language_pack[language].supercategory.equipment + ' (' + equipment + ' Items)');
         equipment = Math.floor(equipment/total * 100);
         data_all.push(equipment);
-        background_color_all.push('rgba(170,108,57,0.2)');
-        border_color_all.push('rgba(170,108,57,1)');
+        background_color_all.push('rgba(170,57,57,0.2)');
+        border_color_all.push('rgba(170,57,57,1)');
         remaining-=equipment;
     }
     if (options.option_sorcery.collection === true || options.option_incantation.collection === true) {
@@ -309,16 +309,16 @@ function update_stats () {
         label_all.push(language_pack[language].supercategory.skills + ' (' + skills + ' Items)');
         skills = Math.floor(skills/total * 100);
         data_all.push(skills);
-        background_color_all.push('rgba(170,160,57,0.2)');
-        border_color_all.push('rgba(170,160,57,1)');
+        background_color_all.push('rgba(241,237,34,0.2)');
+        border_color_all.push('rgba(241,237,34,1)');
         remaining-=skills;
     }
     if (options.option_cookbook.collection === true || options.option_gesture.collection === true || options.option_crystaltear.collection === true || options.option_remembrance.collection === true) {
         label_all.push(language_pack[language].supercategory.miscellaneous + ' (' + miscellaneous + ' Items)');
         miscellaneous = Math.floor(miscellaneous/total * 100);
         data_all.push(miscellaneous);
-        background_color_all.push('rgba(96,151,50,0.2)');
-        border_color_all.push('rgba(96,151,50,1)');
+        background_color_all.push('rgba(45,136,45,0.2)');
+        border_color_all.push('rgba(45,136,45,1)');
         remaining-=miscellaneous;
     }
     label_all.push(language_pack[language].stats_remaining_label + ' (' + remaining_items + ' Items)');
@@ -337,28 +337,34 @@ function update_stats () {
 
 
     // armor
-    let total_armor ;
+    let total_armor = 0;
     let total_armor_collected = data.categories.gauntlets.stats.collected + data.categories.legs.stats.collected + data.categories.helm.stats.collected + data.categories.chest.stats.collected;
     let helm;
     let chest;
+
     let gauntlets = Math.floor(data.categories.gauntlets.stats.collected / data.categories.gauntlets.stats.total * 100);
     let legs = Math.floor(data.categories.legs.stats.collected / data.categories.legs.stats.total * 100);
-    total_armor = data.categories.gauntlets.stats.total;
-    total_armor += data.categories.legs.stats.total;
 
-    if (options.option_altered_armor.collection === true) {
+    if (dlc) {
+        gauntlets = Math.floor(data.categories.gauntlets.stats.collected / data.categories.gauntlets.stats.total_dlc * 100);
+        legs = Math.floor(data.categories.legs.stats.collected / data.categories.legs.stats.total_dlc * 100);
+    }
+
+    if (options.option_altered_armor.collection === false) {
         helm = Math.floor(data.categories.helm.stats.collected / data.categories.helm.stats.total * 100);
         chest = Math.floor(data.categories.chest.stats.collected / data.categories.chest.stats.total * 100);
-        total_armor += data.categories.helm.stats.total;
-        total_armor += data.categories.chest.stats.total;
-        if (options.option_armor.collection === true && !dlc) total_armor = data.categories.helm.stats.total + data.categories.chest.stats.total + data.categories.gauntlets.stats.total + data.categories.legs.stats.total;
+        if (dlc) helm = Math.floor(data.categories.helm.stats.collected / data.categories.helm.stats.total_dlc * 100);
+        if (dlc) chest = Math.floor(data.categories.chest.stats.collected / data.categories.chest.stats.total_dlc * 100);
     } else {
         helm = Math.floor(data.categories.helm.stats.collected / data.categories.helm.stats.total_alternative * 100);
         chest = Math.floor(data.categories.chest.stats.collected / data.categories.chest.stats.total_alternative * 100);
-        total_armor += data.categories.helm.stats.total_alternative;
-        total_armor += data.categories.chest.stats.total_alternative;
-        if (options.option_armor.collection === true && !dlc) total_armor = data.categories.helm.stats.total_alternative + data.categories.chest.stats.total_alternative + data.categories.gauntlets.stats.total + data.categories.legs.stats.total;
+        if (dlc) helm = Math.floor(data.categories.helm.stats.collected / data.categories.helm.stats.total_alternative_dlc * 100);
+        if (dlc) chest = Math.floor(data.categories.chest.stats.collected / data.categories.chest.stats.total_alternative_dlc * 100);
     }
+    if (options.option_armor.collection === true && !dlc) total_armor = data.categories.helm.stats.total_alternative + data.categories.chest.stats.total_alternative + data.categories.gauntlets.stats.total + data.categories.legs.stats.total;
+    if (options.option_armor.collection === false && !dlc) total_armor = data.categories.helm.stats.total + data.categories.chest.stats.total + data.categories.gauntlets.stats.total + data.categories.legs.stats.total;
+    if (options.option_armor.collection === true && dlc) total_armor = data.categories.helm.stats.total_alternative_dlc + data.categories.chest.stats.total_alternative_dlc + data.categories.gauntlets.stats.total_dlc + data.categories.legs.stats.total_dlc;
+    if (options.option_armor.collection === false && dlc) total_armor = data.categories.helm.stats.total_dlc + data.categories.chest.stats.total_dlc + data.categories.gauntlets.stats.total_dlc + data.categories.legs.stats.total_dlc;
 
     let label_armor = [];
     let data_armor = [];
@@ -446,14 +452,14 @@ function update_stats () {
     if (options.option_shield.collection === true) {
         label_equipment.push(data.categories.shield[language].plural + ' (' + data.categories.shield.stats.collected + ' Items)');
         data_equipment.push(shield);
-        background_color_equipment.push('rgba(170,108,57,0.2)');
-        border_color_equipment.push('rgba(170,108,57,1)');
+        background_color_equipment.push('rgba(170,70,40,0.2)');
+        border_color_equipment.push('rgba(170,70,40,1)');
     }
     if (options.option_talisman.collection === true) {
         label_equipment.push(data.categories.talisman[language].plural + ' (' + data.categories.talisman.stats.collected + ' Items)');
         data_equipment.push(talisman);
-        background_color_equipment.push('rgba(170,132,57,0.2)');
-        border_color_equipment.push('rgba(170,132,57,1)');
+        background_color_equipment.push('rgba(170,108,57,0.2)');
+        border_color_equipment.push('rgba(170,108,57,1)');
     }
 
 
@@ -545,14 +551,14 @@ function update_stats () {
     if (options.option_ashes.collection === true) {
         label_skills.push(data.categories.ashes[language].plural + ' (' + data.categories.ashes.stats.collected + ' Items)');
         data_skills.push(ashes);
-        background_color_skills.push('rgba(170,151,57,0.2)');
-        border_color_skills.push('rgba(170,151,57,1)');
+        background_color_skills.push('rgba(162,194,6,0.2)');
+        border_color_skills.push('rgba(162,194,6,1)');
     }
     if (options.option_spirit.collection === true) {
         label_skills.push(data.categories.spirits[language].plural + ' (' + data.categories.spirits.stats.collected + ' Items)');
         data_skills.push(spirits);
-        background_color_skills.push('rgba(170,170,57,0.2)');
-        border_color_skills.push('rgba(170,170,57,1)');
+        background_color_skills.push('rgba(241,237,34,0.2)');
+        border_color_skills.push('rgba(241,237,34,1)');
     }
 
 
@@ -604,14 +610,14 @@ function update_stats () {
     if (options.option_cookbook.collection === true) {
         label_miscellaneous.push(data.categories.cookbook[language].plural + ' (' + data.categories.cookbook.stats.collected + ' Items)');
         data_miscellaneous.push(cookbook);
-        background_color_miscellaneous.push('rgba(122,159,53,0.2)');
-        border_color_miscellaneous.push('rgba(122,159,53,1)');
+        background_color_miscellaneous.push('rgba(0,68,0,0.2)');
+        border_color_miscellaneous.push('rgba(0,68,0,1)');
     }
     if (options.option_gesture.collection === true) {
         label_miscellaneous.push(data.categories.gesture[language].plural + ' (' + data.categories.gesture.stats.collected + ' Items)');
         data_miscellaneous.push(gesture);
-        background_color_miscellaneous.push('rgba(45,136,45,0.2)');
-        border_color_miscellaneous.push('rgba(45,136,45,1)');
+        background_color_miscellaneous.push('rgba(17,102,17,0.2)');
+        border_color_miscellaneous.push('rgba(17,102,17,1)');
     }
     if (options.option_crystaltear.collection === true) {
         label_miscellaneous.push(data.categories.crystaltear[language].plural + ' (' + data.categories.crystaltear.stats.collected + ' Items)');
@@ -622,8 +628,8 @@ function update_stats () {
     if (options.option_remembrance.collection === true) {
         label_miscellaneous.push(data.categories.remembrance[language].plural + ' (' + data.categories.remembrance.stats.collected + ' Items)');
         data_miscellaneous.push(remembrance);
-        background_color_miscellaneous.push('rgba(45,136,45,0.2)');
-        border_color_miscellaneous.push('rgba(45,136,45,1)');
+        background_color_miscellaneous.push('rgba(85,170,85,0.2)');
+        border_color_miscellaneous.push('rgba(85,170,85,1)');
     }
 
 
