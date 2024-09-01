@@ -121,10 +121,6 @@ function create_submenu () {
                 'weapons_greatkatana',
                 'weapons_backhandblade',
             ].includes(subcategory.toString()) && !dlc) continue;
-            console.log(subcategory)
-            console.log(data.categories)
-            console.log(data.categories[current_category])
-            console.log(data.categories[current_category].subcategories[subcategory])
             let category_item = document.createElement('a');
             category_item.innerText = data.categories[current_category].subcategories[subcategory][language];
             element.setAttribute('subcategory', subcategory);

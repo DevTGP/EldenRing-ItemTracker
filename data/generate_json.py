@@ -48,25 +48,39 @@ class DataManager:
                         'header sword',
                         'weapons_dagger',
                         'weapons_straightsword',
-                        'weapons_lightgreatsword',
-                        'weapons_greatsword', #dlc
+                        'weapons_lightgreatsword',  # dlc
+                        'weapons_greatsword',
                         'weapons_colossalsword',
-                        'weapons_curvedsword',
-                        'weapons_curvedgreatsword',
-                        'weapons_katana',
-                        'weapons_greatkatana', #dlc
                         'weapons_thrustingsword',
                         'weapons_heavythrustingsword',
-                        'weapons_backhandblade', #dlc
+                        'weapons_curvedsword',
+                        'weapons_backhandblade',  # dlc
+                        'weapons_curvedgreatsword',
+                        'weapons_katana',
+                        'weapons_greatkatana',  # dlc
+                        'weapons_twinblade',
 
-                        'header sword',
+                        'header other',
                         'weapons_axe',
                         'weapons_greataxe',
                         'weapons_hammer',
+                        'weapons_flail',
                         'weapons_warhammer',
+                        'weapons_colossalweapon',
                         'weapons_spear',
                         'weapons_greatspear',
                         'weapons_halberd',
+                        'weapons_reaper',
+                        'weapons_whip',
+
+                        'header miscellaneous',
+                        'weapons_throwingblade',  # dlc
+                        'weapons_fist',
+                        'weapons_hand-to-handarts',  # dlc
+                        'weapons_claw',
+                        'weapons_beastclaw',
+                        'weapons_perfumebottles',  # dlc
+                        'weapons_torch',
 
                         'header ranged',
                         'weapons_lightbow',
@@ -74,20 +88,6 @@ class DataManager:
                         'weapons_greatbow',
                         'weapons_crossbow',
                         'weapons_ballista',
-
-                        'header other',
-                        'weapons_colossalweapon',
-                        'weapons_twinblade',
-                        'weapons_reaper',
-                        'weapons_whip',
-                        'weapons_flail',
-                        'weapons_claw',
-                        'weapons_beastclaw',
-                        'weapons_fist',
-                        'weapons_torch',
-                        'weapons_hand-to-handarts', #dlc
-                        'weapons_perfumebottles', #dlc
-                        'weapons_throwingblades', #dlc
 
                         'header magic',
                         'weapons_glintstonestaff',
