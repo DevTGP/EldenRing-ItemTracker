@@ -20,6 +20,7 @@ html {
     min-width: 500px;
     background-color: rgba(0, 0, 0, 0.5);
     width: 30vw;
+    backdrop-filter: blur(10px);
 }
 
 #navbar {
@@ -152,6 +153,7 @@ html::-webkit-scrollbar-thumb {
 }
 #stats {
     margin-left: 0px;
+
 }
 #stats div {
     background-color: rgba(0, 0, 0, 0.9);
