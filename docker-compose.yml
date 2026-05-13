@@ -1,0 +1,17 @@
+services:
+  elden-ring-item-tracker-web:
+    build: .
+    container_name: elden-ring-item-tracker-web
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    networks:
+      porta-net:
+        ipv4_address: 172.20.0.11
+
+networks:
+  elden-ring-item-tracker-web-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
