@@ -1,11 +1,12 @@
-FROM python:3.10.12
+FROM python:3.14.5-slim
 
 WORKDIR /app
 
-COPY requirements.txt ./
-RUN python3 -m pip install --upgrade pip
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . /app/
+COPY . .
 
-CMD [ "python3", "main.py" ]
+EXPOSE 5000
+
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "2", "app:app"]

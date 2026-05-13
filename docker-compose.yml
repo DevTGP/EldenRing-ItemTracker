@@ -4,7 +4,7 @@ services:
     container_name: elden-ring-item-tracker-web
     restart: unless-stopped
     ports:
-      - "5000:5000"
+      - "5001:5000"
     networks:
       local-web:
         ipv4_address: 172.20.0.11
