@@ -6,12 +6,9 @@ services:
     ports:
       - "5000:5000"
     networks:
-      elden-ring-item-tracker-web:
+      local-web:
         ipv4_address: 172.20.0.11
 
 networks:
-  elden-ring-item-tracker-web-net:
-    driver: bridge
-    ipam:
-      config:
-        - subnet: 172.20.0.0/24
+  local-web:
+    external: true
